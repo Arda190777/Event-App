@@ -291,7 +291,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(height: 4),
                   Text(
-                      'From \$${(event['ticketmaster_price'] as num?)?.toStringAsFixed(0) ?? '?'}',
+                      (event['ticketmaster_price'] == null || event['ticketmaster_price'] == 0.0)
+                      ? 'Price TBD' : 'From \$${(event['ticketmaster_price'] as num).toStringAsFixed(0)}',
+  
                       style: TextStyle(
                           fontSize: 13,
                           color: Colors.blue,
