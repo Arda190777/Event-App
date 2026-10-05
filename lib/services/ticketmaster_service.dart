@@ -3,11 +3,13 @@ import 'package:http/http.dart' as http;
 import 'database_helper.dart';
 
 class TicketmasterService {
-  static const String _apiKey = 'gNeVLhQy2tkWQGP2I9AasDKpXBm6YYB8';
+  static const String _apiKey = String.fromEnvironment('TICKETMASTER_API_KEY');
   static const String _baseUrl =
       'https://app.ticketmaster.com/discovery/v2/events.json';
 
   static Future<void> fetchAndSaveEvents({String city = 'Toronto'}) async {
+    // Without configuration, retain the local seeded demo events.
+    if (_apiKey.trim().isEmpty) return;
     try {
       String url = '$_baseUrl?apikey=$_apiKey&city=$city&size=10&sort=date,asc';
       final response = await http.get(Uri.parse(url));
